@@ -1,3 +1,5 @@
+
+import torch
 # Definindo dispositivo de hardware
 if torch.cuda.is_available():
     args['device'] = torch.device('cuda')
