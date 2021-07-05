@@ -1,0 +1,13 @@
+pandas
+sqlalchemy
+pymysql
+opencv-python
+numpy
+matplotlib
+sklearn
+rmsd
+scikit-image
+torch
+face_recognition
+dlib
+torchvision
