@@ -36,7 +36,7 @@ import os
 
 from sklearn.metrics import confusion_matrix
 import seaborn as sn
-
+import json
 
 warnings.filterwarnings("ignore")
 torch.cuda.empty_cache()
@@ -193,12 +193,9 @@ for epoch in range(args['epoch_num']):
 
 
 
-cm = confusion_matrix(test_losses[190][2][0], test_losses[190][1][0])
+cm = confusion_matrix(test_losses[int(epoch*0.9)][2][0], test_losses[int(epoch*0.9)][1][0])
 
-a_file = open("results/result.txt", "w")
-for row in test_losses:
-    np.savetxt(a_file, row)
-a_file.close()
+np.save('results/result.npy', test_losses)
 
 EFs['neutro'] = 0
 

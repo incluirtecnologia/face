@@ -12,3 +12,4 @@ face_recognition
 dlib
 torchvision
 seaborn
+json
