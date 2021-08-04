@@ -11,3 +11,4 @@ torch
 face_recognition
 dlib
 torchvision
+seaborn

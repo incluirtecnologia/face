@@ -17,8 +17,8 @@ class Net():
         for batch in train_loader:
 
             dado, rotulo = batch
-            rotulo = rotulo.type(torch.LongTensor)
-            # # Cast do dado na GPU
+            rotulo = rotulo['labels']
+            # Cast do dado na GPU
             dado = dado.to(args['device'])
             rotulo = rotulo.to(args['device'])
 
@@ -40,7 +40,7 @@ class Net():
         pred_list  = np.asarray(pred_list).ravel()
         rotulo_list  = np.asarray(rotulo_list).ravel()
 
-        acc = accuracy_score(pred_list[0], rotulo_list[0])
+        acc = accuracy_score(pred_list, rotulo_list)
 
         end = time.time()
         print('#################### Train ####################')
@@ -49,7 +49,7 @@ class Net():
         return epoch_loss.mean()
 
 
-    def validate(test_loader, net, epoch, args, criterion, optimizer):
+    def validate(self, test_loader, net, epoch, args, criterion, optimizer):
 
         # Evaluation mode
         net.eval()
@@ -58,11 +58,12 @@ class Net():
 
         epoch_loss  = []
         pred_list, rotulo_list = [], []
+        arr_pred_list, arr_rotulo_list = [], []
         with torch.no_grad():
             for batch in test_loader:
 
                 dado, rotulo = batch
-                rotulo = rotulo.type(torch.LongTensor)
+                rotulo = rotulo['labels']
 
                 # Cast do dado na GPU
                 dado = dado.to(args['device'])
@@ -81,10 +82,11 @@ class Net():
         pred_list  = np.asarray(pred_list).ravel()
         rotulo_list  = np.asarray(rotulo_list).ravel()
 
-        acc = accuracy_score(pred_list[0], rotulo_list[0])
-
+        acc = accuracy_score(pred_list, rotulo_list)
+        arr_pred_list.append(pred_list)
+        arr_rotulo_list.append(rotulo_list)
         end = time.time()
         print('********** Validate **********')
         print('Epoch %d, Loss: %.4f +/- %.4f, Acc: %.2f, Time: %.2f\n' % (epoch, epoch_loss.mean(), epoch_loss.std(), acc*100, end-start))
 
-        return epoch_loss.mean()
+        return epoch_loss.mean(), arr_pred_list, arr_rotulo_list

@@ -25,8 +25,8 @@ class FaceLandmarksDataset(Dataset):
         self.transform = transform
         self.target_transform = self.targets
         self.img_labels = self.targets
- 
-        
+
+
     def __len__(self):
         return len(self.landmarks_frame)
 
@@ -39,8 +39,8 @@ class FaceLandmarksDataset(Dataset):
       image = io.imread(self.landmarks_frame.iloc[idx, 0])
       if self.transform:
         image = self.transform(image)
-        image = image.transpose((2, 0, 1))
-        image = torch.from_numpy(image)
+        # image = image.transpose((2, 0, 1))
+        # image = torch.from_numpy(image)
       labels = self.targets[idx]
       labels = np.array([labels])
       sample = {'image': image, 'labels': labels}

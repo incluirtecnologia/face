@@ -69,11 +69,11 @@ class CreateLandmarkDataset:
       if not os.path.exists(root_dir+'/crop'):
         os.makedirs(root_dir+'/crop')
       landmarks_frame = pd.read_csv(root_dir+'/face_landmarks.csv')
-      
+
       for i in range(len(face_dataset)):
         img_name = landmarks_frame.iloc[i, 0]
         image = io.imread(img_name)
-        
+
         img_crop_name = img_name.replace(root_dir,'')
         # Detect faces
         detected_faces = self.detect_faces(image)
@@ -82,10 +82,10 @@ class CreateLandmarkDataset:
         for n, face_rect in enumerate(detected_faces):
             face = Image.fromarray(image).crop(face_rect)
             face.save(root_dir+'/crop/'+img_crop_name)
-    
+
     def targetsCrop(self, root_dir):
       targets = list(np.loadtxt(root_dir + '/rotulos.txt'))
-      
+
       with open(root_dir+'/crop/rotulos.txt', 'w') as txtfile:
         lf = pd.read_csv(root_dir+'/face_landmarks.csv')
         lf_crop = pd.read_csv(root_dir+'/crop/face_landmarks.csv')
@@ -95,3 +95,16 @@ class CreateLandmarkDataset:
               txtfile.write(str(targets[i])+ '\n')
               break
         txtfile.close()
+
+    def datasetWithoutZeros(self, root_dir):
+      targets = list(np.loadtxt(root_dir + '/rotulos.txt'))
+      lf_crop = pd.read_csv(root_dir+'/crop/face_landmarks.csv')
+
+      with open(root_dir+'/crop/rotulosEF.txt', 'w') as rotulosEF:
+        with open(root_dir+'/crop/fileEF.txt', 'w') as fileEF:
+          for j in range(len(lf_crop)):
+            if(targets[j]==1):
+              rotulosEF.write(str(targets[j])+ '\n')
+              fileEF.write(str(lf_crop.iloc[j, 0]+ '\n'))
+      rotulosEF.close()
+      fileEF.close()
