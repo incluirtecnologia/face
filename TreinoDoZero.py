@@ -69,7 +69,7 @@ EFs = {
     "topicos" : 9
 }
 who = [
-    #    'fernando',
+       'fernando',
        'felipe'
 ]
 
