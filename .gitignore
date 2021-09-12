@@ -5,3 +5,4 @@ outputs/architectures/*
 outputs/label2text/*
 outputs/models/*
 __pycache__
+callbacks/__pycache__
