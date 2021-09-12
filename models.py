@@ -28,7 +28,7 @@ class BaseModel():
     def train(self):
         raise NotImplementedError("train is not implemented")
 
-    def evaluate(self, X_test, y_test, emotions, save_evaluation_to=None):
+    def evaluate(self, X_test, y_test, save_evaluation_to=None):
         if self.trained:
             yhat_test = np.argmax(self.model.predict(X_test), axis=1)
             ytest_ = np.argmax(y_test, axis=1)
