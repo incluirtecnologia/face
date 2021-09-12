@@ -14,7 +14,7 @@ from tensorflow.keras.layers import Input, Flatten, Dense, Conv2D, MaxPooling2D,
 from tensorflow.keras.layers import Dropout, Activation, BatchNormalization
 from tensorflow.keras.utils import plot_model
 from tensorflow.keras.regularizers import l2
-
+import wandb
 
 class BaseModel():
 
@@ -28,13 +28,17 @@ class BaseModel():
     def train(self):
         raise NotImplementedError("train is not implemented")
 
-    def evaluate(self, X_test, y_test, save_evaluation_to=None):
+    def evaluate(self, X_test, y_test, emotions, save_evaluation_to=None):
         if self.trained:
             yhat_test = np.argmax(self.model.predict(X_test), axis=1)
             ytest_ = np.argmax(y_test, axis=1)
             test_accu = np.sum(ytest_ == yhat_test) / len(ytest_) * 100
             print(f"test accuracy: {round(test_accu, 4)} %\n\n")
             print(classification_report(ytest_, yhat_test))
+
+            wandb.log({"conf_mat" : wandb.plot.confusion_matrix(probs=None,
+                            y_true=ytest_, preds=yhat_test,
+                            class_names=emotions)})
 
             if not save_evaluation_to is None:
                 scikitplot.metrics.plot_confusion_matrix(

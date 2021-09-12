@@ -13,6 +13,8 @@ from callbacks import early_stopping
 # Ignore warnings
 import warnings
 
+import numpy as np
+
 import wandb
 from wandb.keras import WandbCallback
 
@@ -62,7 +64,7 @@ sweep_config = {
 
 sweep_id = wandb.sweep(sweep_config, project="face")
 
-print("tensorflow ", tf.__version__, "\n")
+# print("tensorflow ", tf.__version__, "\n")
 
 args = {}
 
@@ -99,7 +101,7 @@ def train():
         'model': 'VGG16'
     }
     wandb.init(config=config, project="face", entity='fernandoafreitas')
-    print(wandb.config)
+    # print(wandb.config)
     config = wandb.config
 
     args["optimizer"] = config.optimizer
@@ -288,7 +290,7 @@ def train():
         )
 
         if args["save_confusion_matrix"]:
-            model.evaluate(X_test, y_test, OUTPUT_PATH +
+            model.evaluate(X_test, y_test, EMOTIONS, OUTPUT_PATH +
                         "confusion_matrix/" + RUN_NAME + ".png")
 
     else:
