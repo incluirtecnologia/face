@@ -1,2 +1,6 @@
 ambvir
 data
+wandb/
+outputs/architectures/*
+outputs/label2text/*
+outputs/models/*
