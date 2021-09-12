@@ -38,7 +38,7 @@ class BaseModel():
 
             wandb.log({"conf_mat" : wandb.plot.confusion_matrix(probs=None,
                             y_true=ytest_, preds=yhat_test,
-                            class_names=emotions)})
+                            class_names=["afirmativa","condicional","duvida","foco","negativa","qu","relativa","s_n","topicos"])})
 
             if not save_evaluation_to is None:
                 scikitplot.metrics.plot_confusion_matrix(
