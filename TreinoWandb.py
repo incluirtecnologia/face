@@ -290,7 +290,7 @@ def train():
         )
 
         if args["save_confusion_matrix"]:
-            model.evaluate(X_test, y_test, EMOTIONS, OUTPUT_PATH +
+            model.evaluate(X_test, y_test, OUTPUT_PATH +
                         "confusion_matrix/" + RUN_NAME + ".png")
 
     else:
