@@ -308,5 +308,6 @@ def train():
     except:
         print("An exception occurred")
 
+    wandb.finish()
 
 wandb.agent(sweep_id, function=train())
