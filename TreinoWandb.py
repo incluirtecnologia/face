@@ -68,7 +68,7 @@ args = {}
 
 args['dataset'] = "FAF"
 args['emotions'] = "afirmativa,condicional,duvida,foco,negativa,qu,relativa,s_n,topicos"
-args['emotions'] = "afirmativa"
+# args['emotions'] = "afirmativa"
 args["train_datagen"] = None
 args["save_confusion_matrix"] = True
 DATA_PATH = "inputs/" + args["dataset"] + "/"
