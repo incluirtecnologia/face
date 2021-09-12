@@ -12,4 +12,7 @@ face_recognition
 dlib
 torchvision
 seaborn
-json
+tensorflow
+imutils
+scikit-plot
+wandb
